@@ -30,7 +30,7 @@ This dataset has been cleaned and refined to remove elements not specific to the
 
 ## 4. wiki_naples_wquest.tsv (Q/A dataset)
 
-This file contains a set generated question for each paragraph entry of the Marianna_dataset. Questions have been generated with Llama3.2 Instruct 3B asking the model to generate questions impersonating a curious tourist. Each entry contains the following headers:
+This file contains a set generated question for each paragraph entry of the cleaned wiki_naples_expanded dataset. Questions have been generated with Llama3.2 Instruct 3B asking the model to generate questions impersonating a curious tourist. Each entry contains the following headers:
 
 - title
 - content
