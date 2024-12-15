@@ -28,6 +28,14 @@ This is the final, expanded version of the dataset. It includes entries for all 
 
 This dataset has been cleaned and refined to remove elements not specific to the project, such as mentions of other Greek cities or cities in Magna Graecia, as well as personalities only tangentially related to Naples. This curation process ensures that the dataset remains focused on Naples-specific information.
 
+## 3. wiki_naples_wquest.tsv (Q/A dataset)
+
+This file contains a set generated question for each paragraph entry of the Marianna_dataset. Questions have been generated with Llama3.2 Instruct 3B asking the model to generate questions impersonating a curious tourist. Each entry contains the following headers:
+
+- title
+- content
+- questions
+
 ---
 
 These datasets, specifically wiki_naples_expanded_hyper.tsv, have been used to provide a knowledge base for the talking head "Marianna". This application demonstrates the practical use of the curated data in creating an interactive and informative virtual agent focused on Naples-related topics.
