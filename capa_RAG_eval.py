@@ -9,7 +9,7 @@ loaded_questions_tensors = torch.load("/home/filippo/Scrivania/Marianna_head/que
 all_q_vecs = [triplet['quest_emb'] for triplet in loaded_questions_tensors]
 
 model_name = 'HipFil98/sbert-mariannaQA-ita' #https://huggingface.co/HipFil98/sbert-mariannaQA-ita
-model = SentenceTransformer(model_name, token='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')
+model = SentenceTransformer(model_name)
 
 def search(inp_question):
     question_embedding = model.encode(inp_question, convert_to_tensor=True)
