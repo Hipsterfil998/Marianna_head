@@ -36,6 +36,29 @@ This file contains a set generated question for each paragraph entry of the clea
 - text
 - questions
 
+## 5. wiki_naples_500.tsv
+
+This is an expanded versione of wiki_naples.tsv. The dataset starts from a seed of 500 links related to the city of Naples. This file contains the following headers:
+
+- summary
+- title
+- url
+- content
+- links
+
+## 6. wiki_naples_500_hyper.tsv
+
+This is an expanded versione of wiki_naples.tsv. The dataset includes entries for all objects that have hyperlink connections to the pages contained in wiki_naples_500.tsv. This file contains the following headers:
+
+- summary
+- title
+- url
+- content
+- links
+
+
+
+
 ---
 
 These datasets, specifically wiki_naples_expanded_hyper.tsv, have been used to provide a knowledge base for the talking head "Marianna". This application demonstrates the practical use of the curated data in creating an interactive and informative virtual agent focused on Naples-related topics.
