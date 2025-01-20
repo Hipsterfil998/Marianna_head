@@ -56,7 +56,7 @@ This is an expanded versione of wiki_naples.tsv. The dataset includes entries fo
 - content
 - links
 
-
+For memory issues you can download this file at the following google drive link: https://drive.google.com/file/d/1-BktWHlb87SJu8dKonufgauKPx2Q0OMJ/view?usp=sharing 
 
 
 ---
