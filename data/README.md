@@ -38,7 +38,7 @@ This file contains a set generated question for each paragraph entry of the clea
 
 ## 5. wiki_naples_500.tsv
 
-This is an expanded versione of wiki_naples.tsv. The dataset starts from a seed of 500 links related to the city of Naples. This file contains the following headers:
+This is an expanded version of wiki_naples.tsv. The dataset starts from a seed of 500 links related to the city of Naples. This file contains the following headers:
 
 - summary
 - title
@@ -48,7 +48,7 @@ This is an expanded versione of wiki_naples.tsv. The dataset starts from a seed 
 
 ## 6. wiki_naples_500_hyper.tsv
 
-This is an expanded versione of wiki_naples.tsv. The dataset includes entries for all objects that have hyperlink connections to the pages contained in wiki_naples_500.tsv. This file contains the following headers:
+This is an expanded version of wiki_naples.tsv. The dataset includes entries for all objects that have hyperlink connections to the pages contained in wiki_naples_500.tsv. This file contains the following headers:
 
 - summary
 - title
@@ -59,6 +59,27 @@ This is an expanded versione of wiki_naples.tsv. The dataset includes entries fo
 For memory issues you can download this file at the following google drive link: https://drive.google.com/file/d/1-BktWHlb87SJu8dKonufgauKPx2Q0OMJ/view?usp=sharing 
 The file weights 700 MB and contains about 40000 wiki pages extracted from the 'links' section of wiki_naples_500.tsv
 
+## 7. napoli_particolari_luoghi.tsv
+
+This is a dataset extracted from the "places" section from the website Napoli nei Particolari (https://napolineiparticolari.altervista.org/). It contains the following headers:
+
+- title
+- text
+- url
+
+## 8. napoli_particolari_storia.tsv
+
+This is a dataset extracted from the "history" section from the website Napoli nei Particolari (https://napolineiparticolari.altervista.org/). It contains the following headers:
+
+- title
+- text
+
+## 9. napoli_particolari_leggende.tsv
+
+This is a dataset extracted from the "legends" section from the website Napoli nei Particolari (https://napolineiparticolari.altervista.org/). It contains the following headers:
+
+- title
+- text
 
 ---
 
