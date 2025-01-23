@@ -83,6 +83,16 @@ This is a dataset extracted from the "legends" section from the website Napoli n
 - text
 - url
 
+## 10. napoli_wiki_500_filtered.tsv
+
+This is the filtered version of wiki_napoli_500.tsv; the dataset was obtained by asking Llama 3.2 3B to filter texts according to the adherence to guidelines contained in the prompt. The relevance of the text is established by asking the model to evaluate the title of the text chunk and classifying it as RELEVANT or NON-RELEVANT. The dataset headers are:
+
+- summary
+- title
+- url
+- content
+- links
+
 ---
 
 These datasets, specifically wiki_naples_expanded_hyper.tsv, have been used to provide a knowledge base for the talking head "Marianna". This application demonstrates the practical use of the curated data in creating an interactive and informative virtual agent focused on Naples-related topics.
