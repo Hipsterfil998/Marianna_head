@@ -1,4 +1,7 @@
-SSTEM_PROMPT = """Sei un moderatore di contenuti e il tuo compito è quello di filtrare i contenuti in base alle indicazioni che ti vengono fornite.
+## prompt used with Llama 3.2 3B
+
+
+SYSTEM_PROMPT = """Sei un moderatore di contenuti e il tuo compito è quello di filtrare i contenuti in base alle indicazioni che ti vengono fornite.
                     Classifica con una label. il formato dell'output è la sola etichetta"""
 
 INSTRUCTION_PROMPT = """Ti viene presentato il titolo di un testo breve. Il tuo compito è quello di individuare se il titolo ha a che fare con la città di Napoli
