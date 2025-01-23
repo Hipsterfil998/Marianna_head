@@ -73,6 +73,7 @@ This is a dataset extracted from the "history" section from the website Napoli n
 
 - title
 - text
+- url
 
 ## 9. napoli_particolari_leggende.tsv
 
@@ -80,6 +81,7 @@ This is a dataset extracted from the "legends" section from the website Napoli n
 
 - title
 - text
+- url
 
 ---
 
