@@ -85,7 +85,7 @@ This is a dataset extracted from the "legends" section from the website Napoli n
 
 ## 10. napoli_wiki_500_filtered.tsv
 
-This is the filtered version of wiki_napoli_500.tsv; the dataset was obtained by asking Llama 3.2 3B to filter texts according to the adherence to guidelines contained in the prompt. The relevance of the text is established by asking the model to evaluate the title of the text chunk and classifying it as RELEVANT or NON-RELEVANT. The dataset headers are:
+This is the filtered version of wiki_napoli_500.tsv; it contains 420 content-filtered entries. The dataset was obtained by asking Llama 3.2 3B to filter texts according to the adherence to guidelines contained in the prompt. The relevance of the text is established by asking the model to evaluate the title of the text chunk and classifying it as RELEVANT or NON-RELEVANT. The dataset headers are:
 
 - summary
 - title
