@@ -28,15 +28,7 @@ This is the final, expanded version of the dataset. It includes entries for all 
 
 This dataset has been cleaned and refined to remove elements not specific to the project, such as mentions of other Greek cities or cities in Magna Graecia, as well as personalities only tangentially related to Naples. This curation process ensures that the dataset remains focused on Naples-specific information.
 
-## 4. wiki_naples_QA.tsv (Q/A dataset)
-
-This file contains a set generated question for each paragraph entry of the cleaned wiki_naples_expanded dataset. Questions have been generated with Llama3.2 Instruct 3B asking the model to generate questions impersonating a curious tourist. Each entry contains the following headers:
-
-- title
-- text
-- questions
-
-## 5. wiki_naples_500.tsv
+## 4. wiki_naples_500.tsv
 
 This is an expanded version of wiki_naples.tsv. The dataset starts from a seed of 500 links related to the city of Naples. This file contains the following headers:
 
@@ -46,7 +38,7 @@ This is an expanded version of wiki_naples.tsv. The dataset starts from a seed o
 - content
 - links
 
-## 6. wiki_naples_500_hyper.tsv
+## 5. wiki_naples_500_hyper.tsv
 
 This is an expanded version of wiki_naples.tsv. The dataset includes entries for all objects that have hyperlink connections to the pages contained in wiki_naples_500.tsv. This file contains the following headers:
 
@@ -59,7 +51,7 @@ This is an expanded version of wiki_naples.tsv. The dataset includes entries for
 For memory issues you can download this file at the following google drive link: https://drive.google.com/file/d/1-BktWHlb87SJu8dKonufgauKPx2Q0OMJ/view?usp=sharing 
 The file weights 700 MB and contains about 40000 wiki pages extracted from the 'links' section of wiki_naples_500.tsv
 
-## 7. napoli_particolari_luoghi.tsv
+## 6. napoli_particolari_luoghi.tsv
 
 This is a dataset extracted from the "places" section from the website Napoli nei Particolari (https://napolineiparticolari.altervista.org/). It contains the following headers:
 
@@ -67,7 +59,7 @@ This is a dataset extracted from the "places" section from the website Napoli ne
 - text
 - url
 
-## 8. napoli_particolari_storia.tsv
+## 7. napoli_particolari_storia.tsv
 
 This is a dataset extracted from the "history" section from the website Napoli nei Particolari (https://napolineiparticolari.altervista.org/). It contains the following headers:
 
@@ -75,23 +67,13 @@ This is a dataset extracted from the "history" section from the website Napoli n
 - text
 - url
 
-## 9. napoli_particolari_leggende.tsv
+## 8. napoli_particolari_leggende.tsv
 
 This is a dataset extracted from the "legends" section from the website Napoli nei Particolari (https://napolineiparticolari.altervista.org/). It contains the following headers:
 
 - title
 - text
 - url
-
-## 10. napoli_wiki_500_filtered.tsv
-
-This is the filtered version of wiki_napoli_500.tsv; it contains 420 content-filtered entries. The dataset was obtained by asking Llama 3.2 3B to filter texts according to the adherence to guidelines contained in the prompt. The relevance of the text is established by asking the model to evaluate the title of the text chunk and classifying it as RELEVANT or NON-RELEVANT. The dataset headers are:
-
-- summary
-- title
-- url
-- content
-- links
 
 ---
 
