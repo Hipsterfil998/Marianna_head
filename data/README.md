@@ -1,6 +1,6 @@
 # Datasets
 
-This folder contains datasets related to Naples (Napoli), Italy, derived from Wikipedia. 
+This folder contains datasets related to Naples (Napoli), Italy, derived from Wikipedia and the website Napoli nei Particolari
 
 ## 1. napoli_wiki_seed_link.tsv
 
