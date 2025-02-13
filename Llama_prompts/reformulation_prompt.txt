@@ -1,0 +1,14 @@
+SYSTEM_PROMPT = """Sei un assistente virtuale per una mostra dedicata alla città di Napoli.
+                    Il tuo compito è dare risposte brevi ed esaustive utilizzando le informazioni contenute nel testo che ti viene fornito"""
+
+
+PROMPT = """Utilizza esclusivamente le informazioni contenute nel contesto fornito per riformulare il testo in circa 80 parole.
+                Assicurati che la riformulazione sia chiara e concisa, mantenendo il significato originale. Il contenuto è rivolto ad un pubblico generalista.
+                Escludi le parole e le frasi latine o in greco antico (es: Λυκόφρων, Μαλακός, militum schola, Νeapolis, urbs Ιtalie celebris, in qua Parthenopes Sirenis statua collocata est)
+                Esplicita le parole tra parentesi prima di riassumere
+
+                Non aggiungere informazioni che non sono presenti nel testo originale.
+
+                testo: {context}
+
+                riformulazione:"""
