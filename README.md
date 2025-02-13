@@ -46,7 +46,7 @@ pip install gradio berkeleydb ollama
 
 1. Start the chatbot:
 ```bash
-python main.py
+Testa_di_Marianna/gradio_app.py
 ```
 
 2. Access the web interface through your browser at `http://localhost:7860`
