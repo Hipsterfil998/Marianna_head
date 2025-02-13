@@ -56,22 +56,6 @@ python main.py
 - Asking questions about Naples' history and culture
 - Using the example queries provided in the interface
 
-## Project Structure
-
-```
-Marianna_head/
-├── main.py                
-├── Llama_prompts/
-│   └── reformulation_prompt.txt
-├── Testa_di_Marianna/
-│    ├── gradio_app.py                # application code
-│    ├── database/
-│    │   ├── wiki_naples.db    # Main knowledge database
-│    │   └── wiki_naples_leggende.db  # Legends database
-│    └── images/
-│        └── marianna-102.jpeg # Chatbot avatar imag
-└── README.md
-```
 
 ## Contributing
 
@@ -85,7 +69,7 @@ Please submit pull requests for any improvements you'd like to contribute.
 
 ## License
 
-[Add your chosen license here]
+This project is licensed under the MIT License. For details, see the LICENSE file. Please note that this is a change from the previous license, and it's important to review the terms and conditions of the new license.
 
 ## Acknowledgments
 
