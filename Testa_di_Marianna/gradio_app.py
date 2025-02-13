@@ -99,17 +99,13 @@ def main():
     
     with gr.Blocks(theme=gr.themes.Soft(primary_hue="blue")) as demo:
         with gr.Row():
-            # Logo sinistro
-            #gr.Image("/home/filippo/Scrivania/Marianna_head/Marianna_testa/Unior.jpg", show_label=False, width=50)
             
             # Titolo
             gr.Markdown("## Chat con Marianna 'La Testa di Napoli'")
             
-            # Logo destro
-            #gr.Image("/home/filippo/Scrivania/Marianna_head/Marianna_testa/Logo_infiniti_mondi-04.jpg", show_label=False, width=50)
-        
+    
         with gr.Row():
-            gr.Image("/home/filippo/Scrivania/Marianna_head/Marianna_testa/marianna-102.jpeg", elem_id="marianna-image", width=250)  # Aggiungi il percorso dell'immagine
+            gr.Image("/home/filippo/Scrivania/Marianna_head/Marianna_testa/app_images/marianna-102.jpeg", elem_id="marianna-image", width=250)  # Aggiungi il percorso dell'immagine
             chatbot = gr.Chatbot(
                 value=[{"role": "assistant", "content": bot.get_welcome_message()}],
                 height=500,
