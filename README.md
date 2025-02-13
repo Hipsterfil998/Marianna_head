@@ -39,7 +39,7 @@ pip install gradio berkeleydb ollama
 ```
 
 3. Set up the database paths in the code:
-- Update the database paths in `MariannaBot` class initialization to match your system configuration
+- Update the database paths in `Marianna_head` class initialization to match your system configuration
 - Ensure the image path for Marianna's portrait is correctly set
 
 ## Usage
@@ -59,13 +59,17 @@ python main.py
 ## Project Structure
 
 ```
-marianna-chatbot/
-├── main.py                # Main application code
-├── database/
-│   ├── wiki_naples.db    # Main knowledge database
-│   └── wiki_naples_leggende.db  # Legends database
-├── images/
-│   └── marianna-102.jpeg # Chatbot avatar image
+Marianna_head/
+├── main.py                
+├── Llama_prompts/
+│   └── reformulation_prompt.txt
+├── Testa_di_Marianna/
+│    ├── gradio_app.py                # application code
+│    ├── database/
+│    │   ├── wiki_naples.db    # Main knowledge database
+│    │   └── wiki_naples_leggende.db  # Legends database
+│    └── images/
+│        └── marianna-102.jpeg # Chatbot avatar imag
 └── README.md
 ```
 
