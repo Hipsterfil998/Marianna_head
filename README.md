@@ -2,6 +2,8 @@
 
 Marianna is a virtual agent designed to share the rich cultural heritage, fascinating history, and captivating legends of Naples, Italy. Through interactive conversations, she brings to life the stories that have shaped one of the world's most ancient cities.
 
+<img src="Testa_di_Marianna/app_images/schemata_app.png" alt="Chat con Marianna - La Testa di Napoli" width="300"/>
+
 ## The Story Behind the Name
 
 Our virtual guide takes her name from a fascinating piece of Neapolitan history known as "Donna Marianna 'a cap'e Napule" (Donna Marianna, the head of Naples). In the 17th century, a large marble head of a woman was discovered in the Piazza Mercato area. This remarkable find was documented in Carlo Celano's 1692 work "Notizie del bello, dell'antico e del curioso della città di Napoli" (News of the beautiful, the ancient, and the curious of the city of Naples), where it was identified as the head of the mythical Siren Parthenope.
