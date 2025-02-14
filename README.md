@@ -71,7 +71,7 @@ Please submit pull requests for any improvements you'd like to contribute.
 
 ## License
 
-This project is licensed under the MIT License. For details, see the LICENSE file. Please note that this is a change from the previous license, and it's important to review the terms and conditions of the new license.
+This project is licensed under the MIT License. For details, see the LICENSE file.
 
 ## Acknowledgments
 
