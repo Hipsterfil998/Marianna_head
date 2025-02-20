@@ -56,7 +56,7 @@ Marianna_chat.py
 2. Access the web interface through your browser at `http://localhost:7860`
 
 3. Interact with Marianna by:
-- Responding to her welcome message with 'sì', 'no', or 'raccontami tu qualcosa'
+- Responding to her welcome message with 'sì', 'no', or 'non so, scegli te'
 - Asking questions about Naples' history and culture
 - Using the example queries provided in the interface
 
