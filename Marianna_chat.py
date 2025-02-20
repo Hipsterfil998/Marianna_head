@@ -2,13 +2,11 @@ import gradio as gr
 import random
 import berkeleydb
 import pickle
-import re 
-
 
 class MariannaBot:
     def __init__(self):
-        self.database = berkeleydb.hashopen("/home/filippo/Scrivania/Marianna_head/Marianna_testa/database/wiki_napoli_main.db", flag="w")
-        self.database_legends = berkeleydb.hashopen("/home/filippo/Scrivania/Marianna_head/Marianna_testa/database/wiki_naples_leggende.db", flag="w")
+        self.database = berkeleydb.hashopen("Testa_di_Marianna/database/wiki_napoli_main.db", flag="w") ## change directory here
+        self.database_legends = berkeleydb.hashopen("Testa_di_Marianna/database/wiki_naples_leggende.db", flag="w") ## change directory here
         self.reset_state()
     
     def reset_state(self):
@@ -41,10 +39,9 @@ class MariannaBot:
             if not legend_keys:
                 return "Mi dispiace, al momento non ho leggende da raccontare."
             
-            # Se abbiamo già raccontato tutte le storie, ricominciamo
             available_keys = [key for key in legend_keys if key.decode('utf-8') not in self.main_k]
             if not available_keys:
-                self.main_k = []  # Reset della lista delle storie raccontate
+                self.main_k = [] 
                 available_keys = legend_keys
             
             random_key = random.choice(available_keys)
@@ -146,7 +143,7 @@ def main():
             gr.Markdown("## Chat con Marianna - 'La Testa di Napoli'")
             
         with gr.Row():
-            gr.Image("/home/filippo/Scrivania/Marianna_head/Marianna_testa/marianna-102.jpeg", 
+            gr.Image("Testa_di_Marianna/app_images/marianna-102.jpeg", ## change directory here
                     elem_id="marianna-image", 
                     width=250)
             
