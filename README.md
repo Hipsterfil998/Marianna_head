@@ -4,6 +4,8 @@ Marianna is an Italian virtual agent designed to share the rich cultural heritag
 
 <img src="Testa_di_Marianna/app_images/schemata_app.png" alt="Chat con Marianna - La Testa di Napoli"/>
 
+Try to chat with [Marianna](https://huggingface.co/spaces/HipFil98/Testa_di_Marianna) and discover its knowledge!
+
 ## The Story Behind the Name
 
 Our virtual guide takes her name from a fascinating piece of Neapolitan history known as "Donna Marianna 'a cap'e Napule" (Donna Marianna, the head of Naples). In the 17th century, a large marble head of a woman was discovered in the Piazza Mercato area. This remarkable find was documented in Carlo Celano's 1692 work "Notizie del bello, dell'antico e del curioso della città di Napoli" (News of the beautiful, the ancient, and the curious of the city of Naples), where it was identified as the head of the mythical Siren Parthenope.
@@ -48,7 +50,7 @@ pip install gradio berkeleydb ollama
 
 1. Start the chatbot:
 ```bash
-Testa_di_Marianna/gradio_app.py
+Marianna_chat.py
 ```
 
 2. Access the web interface through your browser at `http://localhost:7860`
@@ -71,9 +73,10 @@ Please submit pull requests for any improvements you'd like to contribute.
 
 ## License
 
-This project is licensed under the MIT License. For details, see the LICENSE file.
+This project is licensed under the MIT License. For details, see the [LICENSE file](https://github.com/RaffaeleMann/Marianna_head/blob/main/LICENSE).
 
 ## Acknowledgments
 
 - The city of Naples for preserving this important cultural artifact
+- all the organizers of the project Case Tecnologie Emergenti - Infiniti Mondi Napoli Innovation City
 - All contributors who help maintain and improve this project
