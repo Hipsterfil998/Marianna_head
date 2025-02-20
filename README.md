@@ -2,7 +2,7 @@
 
 Marianna is an Italian virtual agent designed to share the rich cultural heritage, fascinating history, and captivating legends of Naples, Italy. Through interactive conversations, she brings to life the stories that have shaped Naples, one of the world's most ancient cities.
 
-<img src="Testa_di_Marianna/app_images/schemata_app.png" alt="Chat con Marianna - La Testa di Napoli"/>
+<img src="Testa_di_Marianna/app_images/marianna_screen.png" alt="Chat con Marianna - La Testa di Napoli"/>
 
 Try to chat with [Marianna](https://huggingface.co/spaces/HipFil98/Testa_di_Marianna) and discover its knowledge!
 
