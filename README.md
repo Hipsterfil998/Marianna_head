@@ -4,7 +4,7 @@ Marianna is an Italian virtual agent designed to share the rich cultural heritag
 
 <img src="Testa_di_Marianna/app_images/marianna_screen.png" alt="Chat con Marianna - La Testa di Napoli"/>
 
-Try to chat with [Marianna](https://huggingface.co/spaces/HipFil98/Testa_di_Marianna) and discover its knowledge!
+Try to chat with [Marianna](https://huggingface.co/spaces/HipFil98/Testa_di_Marianna) and discover her knowledge!
 
 ## The Story Behind the Name
 
@@ -33,7 +33,7 @@ The people of Naples affectionately named this artifact "'a cap'e Napule," and i
 
 1. Clone the repository:
 ```bash
-https://github.com/RaffaeleMann/Marianna_head.git
+git clone https://github.com/RaffaeleMann/Marianna_head.git
 cd Marianna_head
 ```
 
