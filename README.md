@@ -16,6 +16,7 @@ The people of Naples affectionately named this artifact "'a cap'e Napule," and i
 
 - Interactive conversational interface using Gradio
 - Knowledge base powered by BerkeleyDB
+- vector search with Sentence-transformers 
 - Integration with Ollama for natural language processing
 - Support for sharing historical facts and legends about Naples
 - User-friendly chat interface with image display
@@ -39,7 +40,7 @@ cd Marianna_head
 
 2. Install the required dependencies:
 ```bash
-pip install gradio berkeleydb ollama
+pip install gradio berkeleydb ollama sentence-transformers
 ```
 
 3. Set up the database paths in the code:
@@ -56,7 +57,7 @@ Marianna_chat.py
 2. Access the web interface through your browser at `http://localhost:7860`
 
 3. Interact with Marianna by:
-- Responding to her welcome message with 'sì', 'no', or 'non so, scegli te'
+- Responding to her welcome message with 'sì', 'no', or 'non so, scegli tu'
 - Asking questions about Naples' history and culture
 - Using the example queries provided in the interface
 
