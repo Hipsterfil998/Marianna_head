@@ -7,8 +7,8 @@ from sentence_transformers import SentenceTransformer, CrossEncoder, util
 
 class MariannaBot:
     def __init__(self):
-        self.database = berkeleydb.hashopen("YOUR_PATH.db", flag="w") # change databases directory
-        self.database_legends = berkeleydb.hashopen("YOUR_PATH.db", flag="w")
+        self.database = berkeleydb.hashopen("wiki_napoli_main.db", flag="w") # insert wiki_napoli_main directory
+        self.database_legends = berkeleydb.hashopen("wiki_naples_leggende.db", flag="w") #insert wiki_naples_leggende directory
         self.db_keys = [key.decode("utf-8") for key, value in self.database.items()]
         self.reset_state()
 
@@ -18,7 +18,7 @@ class MariannaBot:
         """
         try:
             # Initialize the encoder model
-            encoder_model = "nickprock/sentence-bert-base-italian-uncased" 
+            encoder_model = "nickprock/sentence-bert-base-italian-xxl-uncased" 
             cross_encoder_model = "nickprock/cross-encoder-italian-bert-stsb"
             self.encoder = SentenceTransformer(encoder_model)
             self.cross_encoder = CrossEncoder(cross_encoder_model)
@@ -102,8 +102,36 @@ class MariannaBot:
 
             best_hit = reranked_hits[0]
             best_title = self.db_keys[best_hit['corpus_id']]
-           
+            best_score = best_hit['cross-score']
+            #print(best_title, best_score)
             
+            # Main treshold = 0.75
+            similarity_threshold = 0.75
+            
+            # treshold granularity
+            if best_score < similarity_threshold:
+                # low confidence (< 0.35)
+                if best_score < 0.55:
+                    return "Mi dispiace, non ho informazioni su questo argomento. Puoi chiedermi di altro sulla città di Napoli."
+                
+                
+                # medium confidence(0.55 - 0.75)
+                else:
+                    
+                    alternative_hits = [self.db_keys[hit['corpus_id']] for hit in reranked_hits[:2]]
+                    suggestions = ", ".join(alternative_hits)
+                    best_title_bytes = best_title.encode("utf-8") 
+                    if best_title_bytes in self.database:
+                        value = self.database[best_title_bytes]
+                        deserialized_value = pickle.loads(value)
+                        partial_info = deserialized_value.get('short_intro', deserialized_value['intro'].split('.')[0] + '.')
+                        self.state = "query"
+                        self.is_telling_stories = False
+                        return f"Potrei avere alcune informazioni su {best_title}, ma non sono completamente sicura sia ciò che stai cercando. I miei suggerimenti sono {suggestions}. \n\nCosa ti interessa?"
+                    else:
+                        return f"Ho trovato qualcosa su {best_title}, ma non sono completamente sicura. Vuoi saperne di più? (sì/no)"
+            
+            # high confidence (above the threshold)
             if best_title is not None:
                 best_title_bytes = best_title.encode("utf-8") 
 
@@ -192,7 +220,7 @@ def main():
             gr.Markdown("## Chat con Marianna - 'La Testa di Napoli'")
             
         with gr.Row():
-            gr.Image("path_to_marianna-102.jpeg", # change image path
+            gr.Image("marianna-102.jpeg", #insert image directory
                     elem_id="marianna-image", 
                     width=250)
             
