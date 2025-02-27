@@ -2,12 +2,35 @@ import gradio as gr
 import random
 import berkeleydb
 import pickle
+from sentence_transformers import SentenceTransformer, CrossEncoder, util
+
 
 class MariannaBot:
     def __init__(self):
-        self.database = berkeleydb.hashopen("Testa_di_Marianna/database/wiki_napoli_main.db", flag="w") ## change directory here
-        self.database_legends = berkeleydb.hashopen("Testa_di_Marianna/database/wiki_naples_leggende.db", flag="w") ## change directory here
+        self.database = berkeleydb.hashopen("YOUR_PATH.db", flag="w")
+        self.database_legends = berkeleydb.hashopen("YOUR_PATH.db", flag="w")
+        self.db_keys = [key.decode("utf-8") for key, value in self.database.items()]
         self.reset_state()
+
+    def initialize_encoder(self):
+        """
+        Initialize encoder and cross-encoder model.
+        """
+        try:
+            # Initialize the encoder model
+            encoder_model = "nickprock/sentence-bert-base-italian-uncased" 
+            cross_encoder_model = "nickprock/cross-encoder-italian-bert-stsb"
+            self.encoder = SentenceTransformer(encoder_model)
+            self.cross_encoder = CrossEncoder(cross_encoder_model)
+            
+            # Pre-encode all database keys
+            self.db_keys_embeddings = self.encoder.encode(self.db_keys, convert_to_tensor=True)
+            
+            print(f"Encoder initialized with {len(self.db_keys)} keys.")
+            return True
+        except Exception as e:
+            print(f"Error initializing encoder: {str(e)}")
+        return False
     
     def reset_state(self):
         self.state = "initial"
@@ -20,7 +43,7 @@ class MariannaBot:
     def get_welcome_message(self):
         return """Ciao, benvenuto!\n\nSono Marianna, la testa di Napoli, in napoletano 'a capa 'e Napule, una statua ritrovata per caso nel 1594. \nAll'epoca del mio ritrovamento, si pensò che fossi una rappresentazione della sirena Partenope, dalle cui spoglie, leggenda narra, nacque la città di Napoli. In seguito, diversi studiosi riconobbero in me una statua della dea Venere, probabilmente collocata in uno dei tanti templi che si trovavano nella città in epoca tardo-romana, quando ancora si chiamava Neapolis.
         \nPosso raccontarti molte storie sulla città di Napoli e mostrarti le sue bellezze. \nC'è qualcosa in particolare che ti interessa?
-        \n(Rispondi con 'sì', 'no' o 'non so')"""
+        \n(Rispondi con 'sì', 'no' o 'non so, scegli tu')"""
     
     def get_safe_example_keys(self, num_examples=3):
         """Safely get example keys from the database."""
@@ -41,7 +64,7 @@ class MariannaBot:
             
             available_keys = [key for key in legend_keys if key.decode('utf-8') not in self.main_k]
             if not available_keys:
-                self.main_k = [] 
+                self.main_k = []  # Reset della lista delle storie raccontate
                 available_keys = legend_keys
             
             random_key = random.choice(available_keys)
@@ -61,10 +84,33 @@ class MariannaBot:
     def handle_query(self, message):
         """Handle user queries by searching the database"""
         try:
-            for key, value in self.database.items():
-                decoded_key = key.decode("utf-8").lower()
-                if message == decoded_key:
-                    self.main_k.append(key.decode("utf-8"))
+            # Encode the user query
+            query_embedding = self.encoder.encode(message, convert_to_tensor=True)
+            
+            # Perform semantic search on the keys
+            semantic_hits = util.semantic_search(query_embedding, self.db_keys_embeddings, top_k=3)
+            semantic_hits = semantic_hits[0]
+
+            cross_inp = [(message, self.db_keys[hit['corpus_id']]) for hit in semantic_hits]
+            cross_scores = self.cross_encoder.predict(cross_inp)
+
+            reranked_hits = sorted(
+                [{'corpus_id': hit['corpus_id'], 'cross-score': score}
+                for hit, score in zip(semantic_hits, cross_scores)],
+                key=lambda x: x['cross-score'], reverse=True
+            )
+
+            best_hit = reranked_hits[0]
+            best_title = self.db_keys[best_hit['corpus_id']]
+           
+            
+            if best_title is not None:
+                best_title_bytes = best_title.encode("utf-8") 
+
+                if best_title_bytes in self.database:
+                    value = self.database[best_title_bytes] 
+                    key = best_title
+                    self.main_k.append(key)
                     self.state = "follow_up"
                     self.is_telling_stories = False
                     deserialized_value = pickle.loads(value)
@@ -72,8 +118,10 @@ class MariannaBot:
                     self.current_further_info_values = list(deserialized_value.get('further_info', {}).values())
                     self.current_index = 0
                     return f"{response}\n\nVuoi sapere altro su {self.main_k[-1]}? (sì/no)"
-            return "Mi dispiace, non ho informazioni riguardo a questa domanda. Prova a chiedermi qualcos'altro sulla città di Napoli."
-        except Exception:
+                else:
+                    return "Mi dispiace, non ho informazioni riguardo a questa domanda. Prova a chiedermi qualcos'altro sulla città di Napoli."
+        
+        except Exception as e:
             self.state = "initial"
             return "Mi dispiace, c'è stato un errore. Puoi riprovare con un'altra domanda?"
 
@@ -91,10 +139,10 @@ class MariannaBot:
             elif message == "no":
                 self.state = "end"
                 return "Va bene, grazie per aver parlato con me."
-            elif message == "non so":
+            elif message == "non so, scegli tu":
                 return self.story_flow()
             else:
-                return "Scusa, non ho capito. Puoi rispondere con 'sì', 'no' o 'non so'."
+                return "Scusa, non ho capito. Puoi rispondere con 'sì', 'no' o 'non so, scegli tu'."
 
         elif self.state == "query":
             return self.handle_query(message)
@@ -127,6 +175,7 @@ class MariannaBot:
 
 def main():
     bot = MariannaBot()
+    bot.initialize_encoder()
 
     def update_chatbot(message, history):
         if not message.strip():
@@ -143,7 +192,7 @@ def main():
             gr.Markdown("## Chat con Marianna - 'La Testa di Napoli'")
             
         with gr.Row():
-            gr.Image("Testa_di_Marianna/app_images/marianna-102.jpeg", ## change directory here
+            gr.Image("/home/filippo/Scrivania/Marianna_head/Marianna_testa/marianna-102.jpeg", 
                     elem_id="marianna-image", 
                     width=250)
             
