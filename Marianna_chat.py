@@ -7,7 +7,7 @@ from sentence_transformers import SentenceTransformer, CrossEncoder, util
 
 class MariannaBot:
     def __init__(self):
-        self.database = berkeleydb.hashopen("YOUR_PATH.db", flag="w")
+        self.database = berkeleydb.hashopen("YOUR_PATH.db", flag="w") # change databases directory
         self.database_legends = berkeleydb.hashopen("YOUR_PATH.db", flag="w")
         self.db_keys = [key.decode("utf-8") for key, value in self.database.items()]
         self.reset_state()
@@ -192,7 +192,7 @@ def main():
             gr.Markdown("## Chat con Marianna - 'La Testa di Napoli'")
             
         with gr.Row():
-            gr.Image("/home/filippo/Scrivania/Marianna_head/Marianna_testa/marianna-102.jpeg", 
+            gr.Image("path_to_marianna-102.jpeg", # change image path
                     elem_id="marianna-image", 
                     width=250)
             
