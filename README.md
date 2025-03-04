@@ -14,11 +14,10 @@ The people of Naples affectionately named this artifact "'a cap'e Napule," and i
 
 ## Features
 
-- Interactive conversational interface using Gradio
 - Knowledge base powered by BerkeleyDB
 - vector search with Sentence-transformers 
 - Integration with Ollama for language reformulation
-- User-friendly chat interface with image display
+- Interactive conversational interface using Gradio
 - Easy-to-use reset functionality
 - Example queries for better user engagement
 
