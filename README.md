@@ -29,6 +29,7 @@ The people of Naples affectionately named this artifact "'a cap'e Napule," and i
 - Gradio
 - BerkeleyDB
 - Ollama
+- sentence-transformers
 
 ## Installation
 
