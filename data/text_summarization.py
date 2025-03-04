@@ -25,14 +25,14 @@ def filter_relevant_titles(tsv_file):
 
 def convert_roman_numbers(testo):
     """
-    Converte i numeri romani in testo italiano utilizzando una mappatura predefinita.
-    Copre i numeri da I a XXX e gestisce abbreviazioni comuni.
+    Converte i numeri romani in testo italiano e gestisce le abbreviazioni comuni.
+    Rimuove 'primo' all'inizio delle frasi quando è seguito da una parola.
     
     Args:
         testo (str): Il testo contenente numeri romani e abbreviazioni da convertire
         
     Returns:
-        str: Il testo con i numeri romani convertiti in parole e abbreviazioni sostituite
+        str: Il testo convertito con 'primo' rimosso all'inizio delle frasi
     """
     # roman numbers mapping
     map = {
@@ -46,6 +46,9 @@ def convert_roman_numbers(testo):
         "XXIX": "ventinovesimo", "XXX": "trentesimo"
     }
 
+    # Lista di parole da escludere dal riconoscimento romano
+    parole_da_escludere = ["vomero", "volume", "volare", "vulcano", "veneto", "venire"]
+    
     # abbreviations mapping
     map_abbreviazioni = {
         "a.C.": "avanti Cristo",
@@ -58,23 +61,51 @@ def convert_roman_numbers(testo):
         "SS.": "santissimo"
     }
     
-    # regex pattern to capture all roman numbers from I to XXX
-    pattern = r'\b(?:XXX|XX|XX(?:IX|VIII|VII|VI|V|IV|III|II|I)|X(?:IX|VIII|VII|VI|V|IV|III|II|I)|IX|VIII|VII|VI|V|IV|III|II|I)\b'
+    def processa_numero_romano(match):
+        numero_romano = match.group(1)
+        parola_seguente = match.group(2).lower() if match.group(2) else ""
+        
+        # Verifica se il match è una delle parole da escludere
+        match_completo = match.group(0).lower()
+        for parola in parole_da_escludere:
+            if match_completo.startswith(parola) or (numero_romano.lower() + parola_seguente.lower() == parola):
+                return match.group(0)  # Mantieni il testo originale
+        
+        # Se è seguito da "secolo" o "secoli", converti il numero
+        if parola_seguente in ["secolo", "secoli"]:
+            return map.get(numero_romano, numero_romano) + " " + parola_seguente
+        
+        # Se è un singolo "I" non seguito da "secolo/secoli", mantienilo come articolo
+        if numero_romano == "I":
+            return match.group(0)
+            
+        # Altrimenti converti il numero romano
+        return map.get(numero_romano, numero_romano) + (" " + parola_seguente if parola_seguente else "")
     
-    def sostituisci(match):
-        numero_romano = match.group(0)
-        return map.get(numero_romano, numero_romano)
-    
-    # abbreviation substitution (ordered by decreasing length)
+    # Sostituisci prima le abbreviazioni (ordinate per lunghezza decrescente)
     for abbreviazione, sostituto in sorted(map_abbreviazioni.items(), key=lambda x: -len(x[0])):
         testo = testo.replace(abbreviazione, sostituto)
     
-    # roman numbers conversion
-    testo = re.sub(pattern, sostituisci, testo)
+    # Pattern che cattura il numero romano e la parola seguente (se presente)
+    # Modificato per evitare di catturare parole che iniziano con numeri romani
+    pattern = r'\b((?:XXX|XX|XX(?:IX|VIII|VII|VI|V|IV|III|II|I)|X(?:IX|VIII|VII|VI|V|IV|III|II|I)|IX|VIII|VII|VI|V|IV|III|II|I))\s+(\w+)?\b'
     
-    # isolted m conversion
+    # Aggiungi uno spazio tra il numero romano e la parola seguente per evitare di catturare parole come "Vomero"
+    
+    # Converti i numeri romani
+    testo = re.sub(pattern, processa_numero_romano, testo)
+    
+    # Converti le 'm' isolate
     testo = re.sub(r'(?<!\d)\bm\b', "metri", testo)
+    
+    # Rimuovi "primo" all'inizio delle frasi
+    # Questo pattern cerca "primo" all'inizio della stringa o dopo un punto seguito da spazi
+    pattern_primo = r'(?:^|(?<=\.\s))primo\s+'
+    testo = re.sub(pattern_primo, '', testo)
 
+    pattern_quinto = r'(?:^|(?<=\.\s))quinto\s+'
+    testo = re.sub(pattern_quinto, '', testo)
+    
     return testo
     
 
@@ -139,7 +170,7 @@ def dictionary_formatter(data):
 
 ##filter relevant titles
 
-df = pd.read_csv("/home/filippo/Scrivania/Marianna_head/wiki_naples_expanded_hyper.tsv", sep="\t")
+df = pd.read_csv("/home/filippo/Scrivania/Marianna_head/wiki_naples_expanded_hyper_2.tsv", sep="\t")
 
 relevant = filter_relevant_titles("/home/filippo/Scrivania/Marianna_head/database/titoli_pagina_annotati.tsv")
 
@@ -151,5 +182,5 @@ formatter = dictionary_formatter(df_filt)
 
 ##save as pickle file 
 
-with open("/home/filippo/Scrivania/Marianna_head/database/dati_per_database_riassunti.pkl", "wb") as file:
+with open("/home/filippo/Scrivania/Marianna_head/database/dati_riassunti_new.pkl", "wb") as file:
     pickle.dump(formatter, file)
