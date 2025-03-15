@@ -1,4 +1,4 @@
-import ollama
+from llama_cpp import Llama
 import pandas as pd
 import pickle
 import ast
@@ -46,7 +46,7 @@ def convert_roman_numbers(testo):
         "XXIX": "ventinovesimo", "XXX": "trentesimo"
     }
 
-    # Lista di parole da escludere dal riconoscimento romano
+    # words to exclude from conversion
     parole_da_escludere = ["vomero", "volume", "volare", "vulcano", "veneto", "venire"]
     
     # abbreviations mapping
@@ -62,44 +62,40 @@ def convert_roman_numbers(testo):
     }
     
     def processa_numero_romano(match):
+
         numero_romano = match.group(1)
         parola_seguente = match.group(2).lower() if match.group(2) else ""
         
-        # Verifica se il match è una delle parole da escludere
+        # verify match is not part of a word
         match_completo = match.group(0).lower()
         for parola in parole_da_escludere:
             if match_completo.startswith(parola) or (numero_romano.lower() + parola_seguente.lower() == parola):
-                return match.group(0)  # Mantieni il testo originale
+                return match.group(0)
         
-        # Se è seguito da "secolo" o "secoli", converti il numero
+        
         if parola_seguente in ["secolo", "secoli"]:
             return map.get(numero_romano, numero_romano) + " " + parola_seguente
         
-        # Se è un singolo "I" non seguito da "secolo/secoli", mantienilo come articolo
+    
         if numero_romano == "I":
             return match.group(0)
             
-        # Altrimenti converti il numero romano
         return map.get(numero_romano, numero_romano) + (" " + parola_seguente if parola_seguente else "")
     
-    # Sostituisci prima le abbreviazioni (ordinate per lunghezza decrescente)
+    # substituting abbreviations
     for abbreviazione, sostituto in sorted(map_abbreviazioni.items(), key=lambda x: -len(x[0])):
         testo = testo.replace(abbreviazione, sostituto)
     
-    # Pattern che cattura il numero romano e la parola seguente (se presente)
-    # Modificato per evitare di catturare parole che iniziano con numeri romani
+    # pattern to match roman numbers
     pattern = r'\b((?:XXX|XX|XX(?:IX|VIII|VII|VI|V|IV|III|II|I)|X(?:IX|VIII|VII|VI|V|IV|III|II|I)|IX|VIII|VII|VI|V|IV|III|II|I))\s+(\w+)?\b'
     
-    # Aggiungi uno spazio tra il numero romano e la parola seguente per evitare di catturare parole come "Vomero"
-    
-    # Converti i numeri romani
+    # Convert roman numbers
     testo = re.sub(pattern, processa_numero_romano, testo)
     
-    # Converti le 'm' isolate
+    # Convert isolated "m" to "metri"
     testo = re.sub(r'(?<!\d)\bm\b', "metri", testo)
     
-    # Rimuovi "primo" all'inizio delle frasi
-    # Questo pattern cerca "primo" all'inizio della stringa o dopo un punto seguito da spazi
+    # remove 'primo' at the beginning of sentences
     pattern_primo = r'(?:^|(?<=\.\s))primo\s+'
     testo = re.sub(pattern_primo, '', testo)
 
@@ -110,26 +106,36 @@ def convert_roman_numbers(testo):
     
 
 def reformulation(text):
+
+
+    PROMPT = """ <|start_header_id|>user<|end_header_id|> contesto: {contesto}
     
-    PROMPT = """Utilizza esclusivamente le informazioni contenute nel contesto fornito per riformulare il testo in circa 80 parole.
+                Utilizza esclusivamente le informazioni contenute nel contesto fornito per riformulare il testo in circa 80 parole.
                 Assicurati che la riformulazione sia chiara e concisa, mantenendo il significato originale. Ti rivolgi ad un pubblico di non esperti.
                 Non mettere nell'output informazioni tra parentesi tonde.
                 Nell'output controlla che non ci siano errori grammaticali. Se trovi errori correggili.
                 Non aggiungere informazioni che non sono presenti nel testo originale.
-                Nell'output non dire mai che stai riassumendo il testo.
+                Nell'output non dire mai che stai riassumendo il testo. <|eot_id|>"""
                 
-                testo: {context}
-
-                output: """
-
-
-    response = ollama.chat(
-        model="llama3.2",
-        messages=[
-            {"role": "user", "content": PROMPT.format(context=text)}
-        ]
+    llm = Llama(
+        model_path="/home/filippo/Scrivania/Marianna_head/database/Llama-3.2-3B-Instruct-Q4_K_M.gguf", #change with your path; check model repo for info
+        chat_format="llama-3",
+        verbose=False,
+        n_ctx=8192,
+        silent=True
     )
-    return response["message"]["content"]
+    response = llm.create_chat_completion(
+        messages = [
+            {"role": "system", "content": "<|begin_of_text|><|start_header_id|>system<|end_header_id|>Sei una guida turistica per una mostra. "
+            "Il tuo compito è riassumere e semplificare delle informazioni per un pubblico di non esperti. <|eot_id|>"},
+            {"role": "user", "content": PROMPT.format(contesto=text)},
+            {"role": "assistant", "content": "Per chi non è esperto della materia, ecco come possiamo spiegare questo tema: " }
+        ],
+        temperature = 0.1,  # low temperature for more conservative outputs
+        max_tokens =  250    # Limited to 250 tokens (enough for ~80 words)
+    )
+
+    return response["choices"][0]["message"]["content"]
 
 
 def dictionary_formatter(data):
@@ -170,9 +176,9 @@ def dictionary_formatter(data):
 
 ##filter relevant titles
 
-df = pd.read_csv("/home/filippo/Scrivania/Marianna_head/wiki_naples_expanded_hyper_2.tsv", sep="\t")
+df = pd.read_csv("/home/filippo/Scrivania/Marianna_head/wiki_naples_expanded_hyper_2.tsv", sep="\t") #change with your path
 
-relevant = filter_relevant_titles("/home/filippo/Scrivania/Marianna_head/database/titoli_pagina_annotati.tsv")
+relevant = filter_relevant_titles("/home/filippo/Scrivania/Marianna_head/database/titoli_pagina_annotati.tsv") #change with your path
 
 df_filt = df[df['title'].isin(relevant)]
 
@@ -180,7 +186,7 @@ df_filt = df[df['title'].isin(relevant)]
 
 formatter = dictionary_formatter(df_filt)
 
-##save as pickle file 
+#save as pickle file 
 
-with open("/home/filippo/Scrivania/Marianna_head/database/dati_riassunti_new.pkl", "wb") as file:
+with open("/home/filippo/Scrivania/Marianna_head/database/dati_riassunti_new.pkl", "wb") as file: #change with your path
     pickle.dump(formatter, file)
