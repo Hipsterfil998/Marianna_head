@@ -1,10 +1,12 @@
-PROMPT = """Utilizza esclusivamente le informazioni contenute nel contesto fornito per riformulare il testo in circa 80 parole.
-            Assicurati che la riformulazione sia chiara e concisa, mantenendo il significato originale. Ti rivolgi ad un pubblico di non esperti.
-            Non mettere nell'output informazioni tra parentesi tonde.
-            Nell'output controlla che non ci siano errori grammaticali. Se trovi errori correggili.
-            Non aggiungere informazioni che non sono presenti nel testo originale.
-            Nell'output non dire mai che stai riassumendo il testo.
-                
-            testo: {context}
+SYSTEM_PROMPT = "<|begin_of_text|><|start_header_id|>system<|end_header_id|>Sei una guida turistica per una mostra. "Il tuo compito è riassumere e semplificare delle informazioni per un pubblico di non esperti. <|eot_id|>"
 
-            output: """
+USER_PROMPT = """ <|start_header_id|>user<|end_header_id|> contesto: {contesto}
+    
+                Utilizza esclusivamente le informazioni contenute nel contesto fornito per riformulare il testo in circa 80 parole.
+                Assicurati che la riformulazione sia chiara e concisa, mantenendo il significato originale. Ti rivolgi ad un pubblico di non esperti.
+                Non mettere nell'output informazioni tra parentesi tonde.
+                Nell'output controlla che non ci siano errori grammaticali. Se trovi errori correggili.
+                Non aggiungere informazioni che non sono presenti nel testo originale.
+                Nell'output non dire mai che stai riassumendo il testo. <|eot_id|>"""
+
+ASSISTANT_PROMPT = "content": "Per chi non è esperto della materia, ecco come possiamo spiegare questo tema: "
