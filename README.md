@@ -24,10 +24,10 @@ The people of Naples affectionately named this artifact "'a cap'e Napule," and i
 ## Prerequisites
 
 - Python 3.10.12
-- Gradio
+- [Gradio](https://www.gradio.app/)
 - BerkeleyDB
-- Ollama
-- sentence-transformers
+- [llama.cpp](https://github.com/ggml-org/llama.cpp)
+- [sentence-transformers](https://sbert.net/)
 
 ## Installation
 
@@ -39,7 +39,7 @@ cd Marianna_head
 
 2. Install the required dependencies:
 ```bash
-pip install gradio berkeleydb ollama sentence-transformers
+pip install gradio berkeleydb llama-cpp-python sentence-transformers
 ```
 
 3. Set up the database paths in the code:
