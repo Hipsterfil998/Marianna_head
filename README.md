@@ -25,9 +25,10 @@ The people of Naples affectionately named this artifact "'a cap'e Napule," and i
 
 - Python 3.10.12
 - [Gradio](https://www.gradio.app/)
-- BerkeleyDB
-- [llama.cpp](https://github.com/ggml-org/llama.cpp)
+- [BerkeleyDB](https://pypi.org/project/berkeleydb/)
+- [llama.cpp](https://github.com/abetlen/llama-cpp-python)
 - [sentence-transformers](https://sbert.net/)
+- model: [bartowski/Llama-3.2-3B-Instruct-GGUF](https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF)
 
 ## Installation
 
