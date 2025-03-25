@@ -1,6 +1,6 @@
 # Talking Head: Marianna
 
-Marianna is an Italian virtual agent designed to share the rich cultural heritage, fascinating history, and captivating legends of Naples, Italy. Through interactive conversations, she brings to life the stories that have shaped Naples, one of the world's most ancient cities.
+Marianna is an Italian context-specific chatbot designed to share the rich cultural heritage, fascinating history, and captivating legends of Naples, Italy. Through interactive conversations, she brings to life the stories that have shaped Naples, one of the world's most ancient cities.
 
 <img src="Testa_di_Marianna/app_images/Schermata_marianna.png" alt="Chat con Marianna - La Testa di Napoli"/>
 
