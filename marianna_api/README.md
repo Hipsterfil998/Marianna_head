@@ -42,7 +42,7 @@ curl -u "your_username:your_password" http://<SERVER_IP_ADDRESS>:8080/health
 ```
 
 
-### 2.2. `/transcribe_text` (POST) - Text Transcription and Summary
+### 2.2. `/text_response` (POST) - Get text output
 
 This endpoint accepts text as input and searches for a related summary from the internal knowledge base.
 
@@ -64,12 +64,12 @@ curl -X POST \
   -u "your_username:your_password" \
   -H "Content-Type: application/json" \
   -d '{"text": "What'\''s the history of Castel dell'\''Ovo?"}' \
-  http://<SERVER_IP_ADDRESS>:8080/transcribe_text
+  http://<SERVER_IP_ADDRESS>:8080/text_response
 ```
 
 
 
-### 2.3. `/generate_audio` (POST) - Audio Generation from Text
+### 2.3. `/audio_from_text` (POST) - Audio Generation from Text
 
 This endpoint converts a provided text string into a WAV audio file using text-to-speech (TTS) synthesis.
 
@@ -83,12 +83,12 @@ curl -X POST \
   -u "your_username:your_password" \
   -H "Content-Type: application/json" \
   -d '{"text": "Welcome to the Napoli Heritage API. We hope you find our services useful."}' \
-  http://<SERVER_IP_ADDRESS>:8080/generate_audio \
+  http://<SERVER_IP_ADDRESS>:8080/audio_from_text \
   --output welcome_audio.wav
 ```
 
 
-### 2.4. `/transcribe` (POST) - Audio Transcription, Summary, and Audio Response
+### 2.4. `/pipeline_audio` (POST) - Audio Transcription, Summary, and Audio Response
 
 This is the primary integrated endpoint: it receives a WAV audio file, transcribes it, searches for a summary in the knowledge base, and if found, generates an audio response file with the summary.
 
@@ -104,7 +104,7 @@ curl -X POST \
   -u "your_username:your_password" \
   -H "Content-Type: multipart/form-data" \
   -F "file=@/path/to/your/input_audio.wav" \
-  http://<SERVER_IP_ADDRESS>:8080/transcribe \
+  http://<SERVER_IP_ADDRESS>:8080/pipeline_audio \
   --output response_audio.wav -v
 ```
 
