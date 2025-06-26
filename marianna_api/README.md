@@ -6,11 +6,9 @@ Welcome to the Marianna API documentation. This API allows you to interact with 
 
 ### Base Address
 
-The API is accessible via HTTP at the following address:
+The API is accessible via HTTPS at the following address:
 
-http://<SERVER_IP_ADDRESS>:8080
-
-Replace `<SERVER_IP_ADDRESS>` with the actual IP address of the server where the API is running.
+https://nlpgroup.unior.it/api/marianna_head/
 
 ### Authentication
 
@@ -32,7 +30,7 @@ This endpoint is used to verify if the API is active and responding correctly.
 - **curl Command Example**:
 
 ```bash
-curl -u "your_username:your_password" http://<SERVER_IP_ADDRESS>:8080/health
+curl -u "your_username:your_password" https://nlpgroup.unior.it/api/marianna_head/health
 ```
 
 **Expected Success Response:**
@@ -64,7 +62,7 @@ curl -X POST \
   -u "your_username:your_password" \
   -H "Content-Type: application/json" \
   -d '{"text": "What'\''s the history of Castel dell'\''Ovo?"}' \
-  http://<SERVER_IP_ADDRESS>:8080/text_response
+  https://nlpgroup.unior.it/api/marianna_head/text_response
 ```
 
 
@@ -83,7 +81,7 @@ curl -X POST \
   -u "your_username:your_password" \
   -H "Content-Type: application/json" \
   -d '{"text": "Welcome to the Napoli Heritage API. We hope you find our services useful."}' \
-  http://<SERVER_IP_ADDRESS>:8080/audio_from_text \
+  https://nlpgroup.unior.it/api/marianna_head/audio_from_text \
   --output welcome_audio.wav
 ```
 
@@ -104,7 +102,7 @@ curl -X POST \
   -u "your_username:your_password" \
   -H "Content-Type: multipart/form-data" \
   -F "file=@/path/to/your/input_audio.wav" \
-  http://<SERVER_IP_ADDRESS>:8080/pipeline_audio \
+  https://nlpgroup.unior.it/api/marianna_head/pipeline_audio \
   --output response_audio.wav -v
 ```
 
